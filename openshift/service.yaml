@@ -1,0 +1,23 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: ngrok-openshift
+  labels:
+    app: ngrok-openshift
+    app.kubernetes.io/component: ngrok-openshift
+    app.kubernetes.io/instance: ngrok-openshift
+    app.kubernetes.io/name: ngrok-openshift
+    app.kubernetes.io/part-of: ngrok-openshift
+spec:
+  ports:
+    - name: 8443-tcp
+      protocol: TCP
+      port: 8443
+      targetPort: 8443
+    - name: 4443-tcp
+      protocol: TCP
+      port: 4443
+      targetPort: 4443
+  selector:
+    app: ngrok-openshift
+    deploymentconfig: ngrok-openshift

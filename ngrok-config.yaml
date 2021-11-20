@@ -1,0 +1,3 @@
+inspect_addr: 0.0.0.0:8080
+server_addr: server.com:443 # configure in Makefile
+trust_host_root_certs: false

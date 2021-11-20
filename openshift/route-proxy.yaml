@@ -1,0 +1,22 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: ngrok-openshift-proxy
+  labels:
+    app: ngrok-openshift
+    app.kubernetes.io/component: ngrok-openshift
+    app.kubernetes.io/instance: ngrok-openshift
+    app.kubernetes.io/name: ngrok-openshift
+    app.kubernetes.io/part-of: ngrok-openshift
+spec:
+  host: ngrok-openshift-proxy.apps.sandbox.x8i5.p1.openshiftapps.com
+  to:
+    kind: Service
+    name: ngrok-openshift
+    weight: 100
+  port:
+    targetPort: 4443-tcp
+  tls:
+    termination: passthrough
+    insecureEdgeTerminationPolicy: None
+  wildcardPolicy: None

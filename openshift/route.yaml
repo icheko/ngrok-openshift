@@ -1,0 +1,22 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: ngrok-openshift
+  labels:
+    app: ngrok-openshift
+    app.kubernetes.io/component: ngrok-openshift
+    app.kubernetes.io/instance: ngrok-openshift
+    app.kubernetes.io/name: ngrok-openshift
+    app.kubernetes.io/part-of: ngrok-openshift
+spec:
+  host: ngrok-openshift.apps.sandbox.x8i5.p1.openshiftapps.com
+  to:
+    kind: Service
+    name: ngrok-openshift
+    weight: 100
+  port:
+    targetPort: 8443-tcp
+  tls:
+    termination: passthrough
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None

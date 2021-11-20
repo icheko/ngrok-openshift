@@ -1,0 +1,38 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: ngrok-openshift
+  labels:
+    app: ngrok-openshift
+    app.kubernetes.io/component: ngrok-openshift
+    app.kubernetes.io/instance: ngrok-openshift
+    app.kubernetes.io/name: ngrok-openshift
+    app.kubernetes.io/part-of: ngrok-openshift
+  annotations:
+    image.openshift.io/triggers: >-
+      [{"from":{"kind":"ImageStreamTag","name":"ngrok-openshift:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"ngrok-openshift\")].image"}]
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ngrok-openshift
+  template:
+    metadata:
+      labels:
+        app: ngrok-openshift
+        deploymentconfig: ngrok-openshift
+    spec:
+      containers:
+        - name: ngrok-openshift
+          image: >-
+            image-registry.openshift-image-registry.svc:5000/icheko-dev/ngrok-openshift:latest
+          ports:
+            - containerPort: 8443
+              protocol: TCP
+          env:
+            - name: NGROK_DOMAIN
+              value: apps.sandbox.x8i5.p1.openshiftapps.com
+            - name: NGROK_RUN_AS
+              value: server
+          resources: {}
+          imagePullPolicy: Always
